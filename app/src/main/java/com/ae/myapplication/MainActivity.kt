@@ -69,13 +69,13 @@ fun TomCatShopScreen() {
         HeaderSection()
 
         // Search Bar
-         SearchBar()
+        SearchBar()
 
         // Promotional Banner
-         PromotionalBanner()
+        PromotionalBanner()
 
         // Cheap Tom Section
-         CheapTomSection()
+        CheapTomSection()
     }
 }
 
@@ -87,9 +87,9 @@ fun HeaderSection(
 
     /* 1)  Custom font family (already in your project) */
     val ibmPlexSansArabic = FontFamily(
-        Font(R.font.ibm_plex_sans_arabic_bold,   FontWeight.Bold),
+        Font(R.font.ibm_plex_sans_arabic_bold, FontWeight.Bold),
         Font(R.font.ibm_plex_sans_arabic_medium, FontWeight.Medium),
-        Font(R.font.ibm_plex_sans_arabic_regular,FontWeight.Normal)
+        Font(R.font.ibm_plex_sans_arabic_regular, FontWeight.Normal)
     )
 
     /* 2)  Outer horizontal container */
@@ -119,11 +119,11 @@ fun HeaderSection(
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text       = "Hi, Jerry",
-                    fontSize   = 14.sp,              // slightly smaller for better proportion
+                    text = "Hi, Jerry",
+                    fontSize = 14.sp,              // slightly smaller for better proportion
                     fontWeight = FontWeight.Medium,
                     fontFamily = ibmPlexSansArabic,
-                    color      = Color(0xFF1F2937)   // dark gray
+                    color = Color(0xFF1F2937)   // dark gray
                 )
                 Spacer(Modifier.width(6.dp))
                 Text(text = "👋", fontSize = 18.sp)
@@ -132,11 +132,11 @@ fun HeaderSection(
             Spacer(Modifier.height(2.dp))
 
             Text(
-                text       = "Which Tom do you want to buy?",
-                fontSize   = 12.sp,                  // smaller subtitle
+                text = "Which Tom do you want to buy?",
+                fontSize = 12.sp,                  // smaller subtitle
                 fontWeight = FontWeight.Normal,
                 fontFamily = ibmPlexSansArabic,
-                color      = Color(0xFFA5A6A4)       // light gray for subtitle
+                color = Color(0xFFA5A6A4)       // light gray for subtitle
             )
         }
 
@@ -174,9 +174,9 @@ fun HeaderSection(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text       = unreadCount.toString(),
-                        color      = Color.White,
-                        fontSize   = 10.sp,            // smaller text for smaller badge
+                        text = unreadCount.toString(),
+                        color = Color.White,
+                        fontSize = 10.sp,            // smaller text for smaller badge
                         fontWeight = FontWeight.Medium,
                         fontFamily = ibmPlexSansArabic,
                         textAlign = TextAlign.Center,
@@ -329,7 +329,7 @@ fun PromotionalBanner() {
                     contentDescription = "Tom promotional",
 
                     modifier = Modifier
-                        .size(width = 115.38.dp , height = 108.dp)
+                        .size(width = 115.38.dp, height = 108.dp)
                         .offset(x = 20.dp, y = (-10).dp), // Extend slightly beyond the card
                 )
             }
@@ -422,7 +422,8 @@ fun TomItemCard(
         colors = CardDefaults.cardColors(containerColor = Color.White),
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Tom Character Image
@@ -475,9 +476,10 @@ fun TomItemCard(
                     modifier = Modifier
                         .background(
                             color = Color(0xFFE1F5FE), // Light blue background
-                            shape = RoundedCornerShape(12.dp)
+                            shape = RoundedCornerShape(8.dp),
                         )
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                        .weight(1f)
+                        .padding(horizontal = 10.dp, vertical = 6.dp)
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_cheese),
@@ -488,12 +490,15 @@ fun TomItemCard(
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = "${item.price} cheeses",
-                        fontSize = 11.sp,
+                        fontSize = 12.sp,
                         color = Color(0xFF03578A),
                         fontWeight = FontWeight.Medium,
                         fontFamily = ibmPlexSansArabic
                     )
                 }
+
+                Spacer(modifier = Modifier.width(8.dp))
+
 
                 // Shopping cart button
                 OutlinedButton(

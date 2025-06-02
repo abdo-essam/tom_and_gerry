@@ -62,7 +62,7 @@ fun TomCatShopScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFE9F6FB))
+            .background(Color(0xFFF2F7FA))
     ) {
 
         // Header Section
@@ -456,6 +456,7 @@ fun TomItemCard(
                 color = Color(0xFF969799),
                 textAlign = TextAlign.Center,
                 lineHeight = 14.sp,
+                maxLines = 3,
                 fontFamily = ibmPlexSansArabic,
                 fontWeight = FontWeight.Normal
             )
@@ -468,8 +469,16 @@ fun TomItemCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Price with cheese icon
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                // Price with cheese icon - Light blue background
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .background(
+                            color = Color(0xFFE1F5FE), // Light blue background
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_cheese),
                         contentDescription = "Cheese",

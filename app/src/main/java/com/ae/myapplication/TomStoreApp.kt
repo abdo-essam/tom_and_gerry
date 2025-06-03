@@ -134,7 +134,7 @@ fun HeaderSection(
                     color = Color(0xFF1F2937)   // dark gray
                 )
                 Spacer(Modifier.width(6.dp))
-                Text(text = "👋", fontSize = 18.sp)
+                Text(text = "Hi, Jerry👋🏻", fontSize = 18.sp)
             }
 
             Spacer(Modifier.height(2.dp))
@@ -211,52 +211,46 @@ fun SearchBar() {
             .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        OutlinedTextField(
-            value = "",
-            onValueChange = { },
-            placeholder = {
-                Text(
-                    text = "Search about tom ...",
-                    color = Color(0xFF969799),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal,
-                    fontFamily = ibmPlexSansArabic,
-                )
-            },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_search),
-                    contentDescription = "Search",
-                    tint = Color(0xFF969799),
-                    modifier = Modifier.size(24.dp)
-                )
-            },
+        // Search container
+        Row(
             modifier = Modifier
                 .weight(1f)
-                .height(48.dp),
-            shape = RoundedCornerShape(12.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                focusedTextColor = Color(0xFF1F2937),
-                unfocusedTextColor = Color(0xFF1F2937)
-            ),
-            singleLine = true,
-            textStyle = TextStyle(
+                .height(48.dp)
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(12.dp) // More rounded like in the image
+                )
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Search icon
+            Icon(
+                painter = painterResource(id = R.drawable.ic_search),
+                contentDescription = "Search",
+                tint = Color(0xFF969799),
+                modifier = Modifier.size(24.dp)
+            )
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            // Search text
+            Text(
+                text = "Search about tom ...",
+                color = Color(0xFF969799),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = ibmPlexSansArabic
+                fontFamily = ibmPlexSansArabic,
+                modifier = Modifier.weight(1f)
             )
-        )
+        }
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(12.dp))
 
+        // Filter button with more rounded corners
         Box(
             modifier = Modifier
                 .size(48.dp)
-                .background(Color(0xFF03578A), RoundedCornerShape(12.dp))
+                .background(Color(0xFF03578A), RoundedCornerShape(12.dp)) // More rounded
                 .clickable { /* Handle filter click */ },
             contentAlignment = Alignment.Center
         ) {
@@ -264,7 +258,7 @@ fun SearchBar() {
                 painter = painterResource(id = R.drawable.ic_filter),
                 contentDescription = "Filter",
                 tint = Color.White,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(20.dp)
             )
         }
     }
@@ -284,8 +278,9 @@ fun PromotionalBanner() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .height(108.dp) // Increased height to accommodate Tom's head
+            .height(108.dp)
     ) {
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -305,29 +300,29 @@ fun PromotionalBanner() {
                             startX = 0f,
                             endX = Float.POSITIVE_INFINITY
                         ),
-                        shape = RoundedCornerShape(20.dp)
+                        shape = RoundedCornerShape(16.dp)
                     )
+                    .clip(RoundedCornerShape(20.dp)) // Clip ellipses to card shape
             ) {
 
-                // Background decorative ellipses - positioned behind Tom
-                // Large ellipse behind Tom
+                // Medium ellipse
                 Box(
                     modifier = Modifier
-                        .size(180.dp)
-                        .offset(x = 200.dp, y = (-40).dp)
+                        .size(100.dp)
+                        .offset(x = 210.14.dp, y = 95.85.dp)
                         .background(
-                            color = Color.White.copy(alpha = 0.1f),
+                            color = Color.White.copy(alpha = 0.08f),
                             shape = CircleShape
                         )
                 )
 
-                // Smaller ellipse
+                // Small ellipse
                 Box(
                     modifier = Modifier
-                        .size(120.dp)
-                        .offset(x = 280.dp, y = 40.dp)
+                        .size(60.dp)
+                        .offset(x = 250.dp, y = (-10).dp)
                         .background(
-                            color = Color.White.copy(alpha = 0.08f),
+                            color = Color.White.copy(alpha = 0.06f),
                             shape = CircleShape
                         )
                 )
@@ -355,10 +350,10 @@ fun PromotionalBanner() {
                         Text(
                             text = "Adopt Tom! (Free Fail-Free\nGuarantee)",
                             fontSize = 12.sp,
-                            color = Color.White.copy(alpha = 0.9f),
+                            color = Color.White.copy(alpha = 0.8f),
                             fontFamily = ibmPlexSansArabic,
                             fontWeight = FontWeight.Normal,
-                            lineHeight = 16.sp
+                            letterSpacing = 0.sp
                         )
                     }
                 }
@@ -370,9 +365,9 @@ fun PromotionalBanner() {
             painter = painterResource(id = R.drawable.tom_promotional),
             contentDescription = "Tom promotional",
             modifier = Modifier
-                .height(120.dp) // Larger height so head extends above
-                .align(Alignment.CenterEnd) // Align to the right
-                .offset(x = 0.dp, y = (-16).dp), // Negative Y to push head above card
+                .height(120.dp)
+                .align(Alignment.CenterEnd)
+                .offset(x = 0.dp, y = (-16).dp),
         )
     }
 }

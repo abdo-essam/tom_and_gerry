@@ -28,8 +28,15 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -67,10 +74,14 @@ fun TomStoreScreenPreview() {
 
 @Composable
 fun TomCatShopScreen() {
+    val scrollState = rememberScrollState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF2F7FA))
+            .windowInsetsPadding(WindowInsets.statusBars) // Handle notch/status bar
+            .verticalScroll(scrollState) // Make scrollable
     ) {
 
         // Header Section
@@ -82,8 +93,8 @@ fun TomCatShopScreen() {
         // Promotional Banner
         PromotionalBanner()
 
-        // Cheap Tom Section
-        CheapTomSection()
+        // Cheap Tom Section (convert to regular Column)
+        CheapTomSectionScrollable()
     }
 }
 
@@ -126,7 +137,7 @@ fun HeaderSection(
                 .weight(1f)                          // take all remaining width
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "Hi, Jerry👋🏻",
+                Text(text = "Hi, Jerry 👋🏻",
                     fontSize = 14.sp,              // slightly smaller for better proportion
                     fontWeight = FontWeight.Medium,
                     fontFamily = ibmPlexSansArabic,
@@ -142,6 +153,7 @@ fun HeaderSection(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
                 fontFamily = ibmPlexSansArabic,
+                letterSpacing = 0.sp,
                 color = Color(0xFFA5A6A4)       // light gray for subtitle
             )
         }
@@ -639,3 +651,73 @@ fun getTomItems(): List<TomItem> = listOf(
         imageRes = R.drawable.sleeping_tom
     )
 )
+
+@Composable
+fun CheapTomSectionScrollable() {
+    val ibmPlexSansArabic = FontFamily(
+        Font(R.font.ibm_plex_sans_arabic_bold, FontWeight.Bold),
+        Font(R.font.ibm_plex_sans_arabic_medium, FontWeight.Medium),
+        Font(R.font.ibm_plex_sans_arabic_regular, FontWeight.Normal),
+        Font(R.font.ibm_plex_sans_arabic_semibold, FontWeight.SemiBold)
+    )
+
+    Column(
+        modifier = Modifier.padding(horizontal = 16.dp)
+    ) {
+        // Section header
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Cheap tom section",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color(0xFF1F2937),
+                fontFamily = ibmPlexSansArabic
+            )
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "View all",
+                    fontSize = 12.sp,
+                    color = Color(0xFF03578A),
+                    fontFamily = ibmPlexSansArabic,
+                    fontWeight = FontWeight.Medium
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_right),
+                    contentDescription = "View all",
+                    tint = Color(0xFF03578A),
+                    modifier = Modifier.size(12.dp)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Grid of Tom items
+        getTomItems().chunked(2).forEach { rowItems ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                rowItems.forEach { item ->
+                    TomItemCard(
+                        item = item,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                if (rowItems.size == 1) {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        // Add bottom padding to ensure last items are not cut off
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}

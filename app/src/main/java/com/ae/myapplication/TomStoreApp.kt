@@ -434,15 +434,15 @@ fun TomItemCard(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
-                .offset(y = 20.dp),
+                .height(219.dp)
+                .offset(y = 15.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
+                    .padding(8.dp),
                 verticalArrangement = Arrangement.Bottom,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -457,27 +457,32 @@ fun TomItemCard(
                     fontFamily = ibmPlexSansArabic
                 )
 
+
+                // Description with fixed height
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(42.dp), // Fixed height for 3 lines (16sp * 3 lines)
+                ) {
+                    Text(
+                        text = item.description,
+                        fontSize = 12.sp,
+                        color = Color(0xFF969799),
+                        textAlign = TextAlign.Center,
+                        letterSpacing = 0.sp,
+                        fontFamily = ibmPlexSansArabic,
+                        fontWeight = FontWeight.Normal
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(8.dp))
-
-                // Description
-                Text(
-                    text = item.description,
-                    fontSize = 12.sp,
-                    color = Color(0xFF969799),
-                    textAlign = TextAlign.Center,
-                    lineHeight = 14.sp,
-                    maxLines = 3,
-                    fontFamily = ibmPlexSansArabic,
-                    fontWeight = FontWeight.Normal
-                )
-
 
 
                 // Price and Cart Row
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    horizontalArrangement = Arrangement.SpaceBetween, // Change this line
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     // Price with cheese icon
                     Row(
@@ -488,6 +493,7 @@ fun TomItemCard(
                                 shape = RoundedCornerShape(8.dp)
                             )
                             .padding(horizontal = 8.dp, vertical = 4.dp)
+                            .weight(1f)
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_cheese),
@@ -522,6 +528,7 @@ fun TomItemCard(
                         }
                     }
 
+                    Spacer(modifier = Modifier.width(8.dp))
                     // Shopping cart button
                     OutlinedButton(
                         onClick = { },

@@ -126,15 +126,13 @@ fun HeaderSection(
                 .weight(1f)                          // take all remaining width
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "Hi, Jerry",
+                Text(text = "Hi, Jerry👋🏻",
                     fontSize = 14.sp,              // slightly smaller for better proportion
                     fontWeight = FontWeight.Medium,
                     fontFamily = ibmPlexSansArabic,
                     color = Color(0xFF1F2937)   // dark gray
                 )
                 Spacer(Modifier.width(6.dp))
-                Text(text = "Hi, Jerry👋🏻", fontSize = 18.sp)
             }
 
             Spacer(Modifier.height(2.dp))
@@ -285,7 +283,7 @@ fun PromotionalBanner() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(92.dp),
-            shape = RoundedCornerShape(20.dp),
+            shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = Color.Transparent)
         ) {
             Box(
@@ -336,7 +334,7 @@ fun PromotionalBanner() {
                     Column(
                         modifier = Modifier
                             .weight(1f)
-                            .padding(horizontal = 12.dp)
+                            .padding(12.dp)
                     ) {
                         Text(
                             text = "Buy 1 Tom and get 2 for free",
@@ -346,14 +344,13 @@ fun PromotionalBanner() {
                             letterSpacing = 0.sp,
                             fontFamily = ibmPlexSansArabic,
                         )
-                        Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = "Adopt Tom! (Free Fail-Free\nGuarantee)",
                             fontSize = 12.sp,
                             color = Color.White.copy(alpha = 0.8f),
                             fontFamily = ibmPlexSansArabic,
                             fontWeight = FontWeight.Normal,
-                            letterSpacing = 0.sp
+                            letterSpacing = 0.sp,
                         )
                     }
                 }

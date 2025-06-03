@@ -427,23 +427,23 @@ fun TomItemCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(220.dp),
+            .height(240.dp),
         contentAlignment = Alignment.TopCenter
     ) {
 
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(180.dp)
-                .offset(y = 40.dp),
+                .height(200.dp)
+                .offset(y = 20.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp)
-                    .padding(top = 40.dp),
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.Bottom,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
@@ -457,7 +457,7 @@ fun TomItemCard(
                     fontFamily = ibmPlexSansArabic
                 )
 
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 // Description
                 Text(
@@ -471,8 +471,7 @@ fun TomItemCard(
                     fontWeight = FontWeight.Normal
                 )
 
-                // Push the bottom content to the bottom
-                Spacer(modifier = Modifier.weight(1f))
+
 
                 // Price and Cart Row
                 Row(
@@ -496,14 +495,31 @@ fun TomItemCard(
                             tint = Color(0xFF03578A),
                             modifier = Modifier.size(14.dp)
                         )
+
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = "${item.price} cheeses",
-                            fontSize = 11.sp,
-                            color = Color(0xFF03578A),
-                            fontWeight = FontWeight.Medium,
-                            fontFamily = ibmPlexSansArabic
-                        )
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            // Show original price with strikethrough if it exists
+                            if (item.originalPrice != null) {
+                                Text(
+                                    text = "${item.originalPrice}",
+                                    fontSize = 12.sp,
+                                    color = Color(0xFF03578A),
+                                    fontWeight = FontWeight.Medium,
+                                    fontFamily = ibmPlexSansArabic,
+                                    textDecoration = androidx.compose.ui.text.style.TextDecoration.LineThrough
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                            }
+
+                            // Current price
+                            Text(
+                                text = "${item.price} cheeses",
+                                fontSize = 12.sp,
+                                color = Color(0xFF03578A),
+                                fontWeight = FontWeight.Medium,
+                                fontFamily = ibmPlexSansArabic
+                            )
+                        }
                     }
 
                     // Shopping cart button
@@ -534,7 +550,7 @@ fun TomItemCard(
             painter = painterResource(id = item.imageRes),
             contentDescription = item.name,
             modifier = Modifier
-                .size(80.dp)
+                .height(100.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .offset(y = 0.dp),
             contentScale = ContentScale.Fit
@@ -546,6 +562,7 @@ data class TomItem(
     val name: String,
     val description: String,
     val price: Int,
+    val originalPrice: Int? = null, // Add this for strikethrough price
     val imageRes: Int
 )
 
@@ -553,7 +570,8 @@ fun getTomItems(): List<TomItem> = listOf(
     TomItem(
         name = "Sport Tom",
         description = "He runs 1 meter... trips over his boot.",
-        price = 5,
+        price = 3,
+        originalPrice = 5, // Show strikethrough on 5
         imageRes = R.drawable.sport_tom
     ),
     TomItem(

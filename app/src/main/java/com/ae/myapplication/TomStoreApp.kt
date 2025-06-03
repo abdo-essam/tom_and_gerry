@@ -470,6 +470,7 @@ fun TomItemCard(
                         color = Color(0xFF969799),
                         textAlign = TextAlign.Center,
                         letterSpacing = 0.sp,
+                        maxLines = 3,
                         fontFamily = ibmPlexSansArabic,
                         fontWeight = FontWeight.Normal
                     )

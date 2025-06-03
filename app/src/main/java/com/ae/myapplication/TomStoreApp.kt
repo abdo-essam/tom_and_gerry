@@ -279,69 +279,101 @@ fun PromotionalBanner() {
         Font(R.font.ibm_plex_sans_arabic_semibold, FontWeight.SemiBold)
     )
 
-    Card(
+    // Wrap everything in a Box to allow Tom to extend beyond the card
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .height(120.dp),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+            .height(108.dp) // Increased height to accommodate Tom's head
     ) {
-        Box(
+        Card(
             modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(
-                            Color(0xFF03446A), // Dark blue on left
-                            Color(0xFF0685D0)  // Lighter cyan-blue on right
-                        ),
-                        startX = 0f,
-                        endX = Float.POSITIVE_INFINITY
-                    ),
-                    shape = RoundedCornerShape(20.dp)
-                )
+                .fillMaxWidth()
+                .height(92.dp),
+            shape = RoundedCornerShape(20.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.Transparent)
         ) {
-            Row(
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(12.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .background(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(
+                                Color(0xFF03446A), // Dark blue on left
+                                Color(0xFF0685D0)  // Lighter cyan-blue on right
+                            ),
+                            startX = 0f,
+                            endX = Float.POSITIVE_INFINITY
+                        ),
+                        shape = RoundedCornerShape(20.dp)
+                    )
             ) {
-                // Text content on the left
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(
-                        text = "Buy 1 Tom and get 2 for free",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color.White,
-                        fontFamily = ibmPlexSansArabic,
-                        lineHeight = 20.sp
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "Adopt Tom! (Free Fail-Free\nGuarantee)",
-                        fontSize = 12.sp,
-                        color = Color.White.copy(alpha = 0.9f),
-                        fontFamily = ibmPlexSansArabic,
-                        fontWeight = FontWeight.Normal,
-                        lineHeight = 16.sp
-                    )
-                }
 
-                // Tom image on the right
-                Image(
-                    painter = painterResource(id = R.drawable.tom_promotional),
-                    contentDescription = "Tom promotional",
-
+                // Background decorative ellipses - positioned behind Tom
+                // Large ellipse behind Tom
+                Box(
                     modifier = Modifier
-                        .size(width = 115.38.dp, height = 108.dp)
-                        .offset(x = 20.dp, y = (-10).dp), // Extend slightly beyond the card
+                        .size(180.dp)
+                        .offset(x = 200.dp, y = (-40).dp)
+                        .background(
+                            color = Color.White.copy(alpha = 0.1f),
+                            shape = CircleShape
+                        )
                 )
+
+                // Smaller ellipse
+                Box(
+                    modifier = Modifier
+                        .size(120.dp)
+                        .offset(x = 280.dp, y = 40.dp)
+                        .background(
+                            color = Color.White.copy(alpha = 0.08f),
+                            shape = CircleShape
+                        )
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Text content on the left
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(horizontal = 12.dp)
+                    ) {
+                        Text(
+                            text = "Buy 1 Tom and get 2 for free",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color.White,
+                            letterSpacing = 0.sp,
+                            fontFamily = ibmPlexSansArabic,
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Adopt Tom! (Free Fail-Free\nGuarantee)",
+                            fontSize = 12.sp,
+                            color = Color.White.copy(alpha = 0.9f),
+                            fontFamily = ibmPlexSansArabic,
+                            fontWeight = FontWeight.Normal,
+                            lineHeight = 16.sp
+                        )
+                    }
+                }
             }
         }
+
+        // Tom image positioned to extend outside the card
+        Image(
+            painter = painterResource(id = R.drawable.tom_promotional),
+            contentDescription = "Tom promotional",
+            modifier = Modifier
+                .height(120.dp) // Larger height so head extends above
+                .align(Alignment.CenterEnd) // Align to the right
+                .offset(x = 0.dp, y = (-16).dp), // Negative Y to push head above card
+        )
     }
 }
 

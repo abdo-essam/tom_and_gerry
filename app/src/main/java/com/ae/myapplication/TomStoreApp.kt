@@ -337,12 +337,14 @@ fun PromotionalBanner() {
                             .padding(12.dp)
                     ) {
                         Text(
+                            modifier = Modifier.padding(bottom = 8.dp),
                             text = "Buy 1 Tom and get 2 for free",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.White,
                             letterSpacing = 0.sp,
                             fontFamily = ibmPlexSansArabic,
+
                         )
                         Text(
                             text = "Adopt Tom! (Free Fail-Free\nGuarantee)",
@@ -350,7 +352,7 @@ fun PromotionalBanner() {
                             color = Color.White.copy(alpha = 0.8f),
                             fontFamily = ibmPlexSansArabic,
                             fontWeight = FontWeight.Normal,
-                            letterSpacing = 0.sp,
+                            lineHeight = 16.sp
                         )
                     }
                 }
@@ -408,7 +410,7 @@ fun CheapTomSection() {
                         painter = painterResource(id = R.drawable.ic_arrow_right),
                         contentDescription = "View all",
                         tint = Color(0xFF03578A),
-                        modifier = Modifier.size(16.dp)
+                        modifier = Modifier.size(12.dp)
                     )
                 }
             }
@@ -419,7 +421,7 @@ fun CheapTomSection() {
         items(getTomItems().chunked(2)) { rowItems ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 rowItems.forEach { item ->
                     TomItemCard(
@@ -431,7 +433,7 @@ fun CheapTomSection() {
                     Spacer(modifier = Modifier.weight(1f))
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
@@ -486,7 +488,7 @@ fun TomItemCard(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(42.dp), // Fixed height for 3 lines (16sp * 3 lines)
+                        .height(54.dp),
                 ) {
                     Text(
                         text = item.description,

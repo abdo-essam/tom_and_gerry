@@ -508,6 +508,7 @@ fun TomItemCard(
                         color = Color(0xFF969799),
                         textAlign = TextAlign.Center,
                         letterSpacing = 0.sp,
+                        lineHeight = 16.sp,
                         maxLines = 3,
                         fontFamily = ibmPlexSansArabic,
                         fontWeight = FontWeight.Normal
@@ -622,7 +623,7 @@ fun getTomItems(): List<TomItem> = listOf(
     ),
     TomItem(
         name = "Tom the lover",
-        description = "He loves one-sidedly... and is beaten by the other side.",
+        description = "He loves one-sidedly... and is beaten by the other \nside.",
         price = 5,
         imageRes = R.drawable.tom_lover
     ),

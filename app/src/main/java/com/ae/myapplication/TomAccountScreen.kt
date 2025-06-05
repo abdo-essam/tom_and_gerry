@@ -51,6 +51,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.style.TextAlign
 
 
 @Composable
@@ -80,7 +81,6 @@ fun TomAccountScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .windowInsetsPadding(WindowInsets.statusBars)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -176,7 +176,7 @@ fun ProfileSection(fontFamily: FontFamily) {
             contentScale = ContentScale.Crop
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         // Name
         Text(
@@ -184,10 +184,11 @@ fun ProfileSection(fontFamily: FontFamily) {
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
             color = Color.White,
+            letterSpacing = 0.sp,
             fontFamily = ibmPlexSansArabic
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         // Description
         Text(
@@ -198,29 +199,26 @@ fun ProfileSection(fontFamily: FontFamily) {
             fontWeight = FontWeight.Normal
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         // Edit Button
-        OutlinedButton(
-            onClick = { /* Handle edit */ },
+        Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
+                .height(25.dp)
                 .background(
                     color = Color.White.copy(alpha = 0.12f),
                     shape = RoundedCornerShape(40.dp)
-                ),
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = Color.White,
-                containerColor = Color.Transparent
-            ),
-            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.3f)),
-            shape = RoundedCornerShape(40.dp)
+                )
+                .clickable { /* Handle edit */ }
+                .padding(vertical = 6.dp, horizontal = 12.dp)
         ) {
             Text(
-                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
                 text = "Edit foolishness",
                 fontSize = 10.sp,
+                color = Color.White,
                 fontFamily = fontFamily,
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Medium
             )
         }
     }
@@ -228,6 +226,7 @@ fun ProfileSection(fontFamily: FontFamily) {
 
 @Composable
 fun StatsGrid(fontFamily: FontFamily) {
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -302,9 +301,14 @@ fun StatCard(
     modifier: Modifier = Modifier,
     fontFamily: FontFamily
 ) {
+    val ibmPlexSansArabic = FontFamily(
+        Font(R.font.ibm_plex_sans_arabic_bold, FontWeight.Bold),
+        Font(R.font.ibm_plex_sans_arabic_medium, FontWeight.Medium),
+        Font(R.font.ibm_plex_sans_arabic_regular, FontWeight.Normal)
+    )
     Card(
         modifier = modifier.height(80.dp),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor)
     ) {
         Row(
@@ -381,17 +385,21 @@ fun StatCard(
             ) {
                 Text(
                     text = value,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF374151),
-                    fontFamily = fontFamily
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    letterSpacing = 0.5.sp,
+                    lineHeight = 16.sp,
+                    color = Color(0xFF121212).copy(alpha = 0.6f),
+                    fontFamily = ibmPlexSansArabic
                 )
                 Text(
+                    letterSpacing = 0.5.sp,
                     text = label,
-                    fontSize = 14.sp,
-                    color = Color(0xFF9CA3AF),
-                    fontFamily = fontFamily,
-                    fontWeight = FontWeight.Normal
+                    fontSize = 12.sp,
+                    lineHeight = 16.sp,
+                    color = Color(0xFF121212).copy(alpha = 0.37f),
+                    fontFamily = ibmPlexSansArabic,
+                    fontWeight = FontWeight.Medium
                 )
             }
         }
@@ -400,6 +408,11 @@ fun StatCard(
 
 @Composable
 fun SettingsSection(fontFamily: FontFamily) {
+    val ibmPlexSansArabic = FontFamily(
+        Font(R.font.ibm_plex_sans_arabic_bold, FontWeight.Bold),
+        Font(R.font.ibm_plex_sans_arabic_medium, FontWeight.Medium),
+        Font(R.font.ibm_plex_sans_arabic_regular, FontWeight.Normal)
+    )
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -412,29 +425,28 @@ fun SettingsSection(fontFamily: FontFamily) {
     ) {
         Text(
             text = "Tom settings",
-            fontSize = 24.sp,
+            fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF1F2937),
-            fontFamily = fontFamily,
-            modifier = Modifier.padding(bottom = 20.dp)
+            color = Color(0xFF1F1F1E).copy(alpha = 0.87f),
+            fontFamily = ibmPlexSansArabic,
         )
 
         SettingItem(
             title = "Change sleeping place",
-            iconRes = R.drawable.ic_bed, // Add this icon
-            fontFamily = fontFamily
+            iconRes = R.drawable.ic_bed,
+            fontFamily = ibmPlexSansArabic
         )
 
         SettingItem(
             title = "Meow settings",
-            iconRes = R.drawable.ic_meow, // Add this icon
-            fontFamily = fontFamily
+            iconRes = R.drawable.ic_meow,
+            fontFamily = ibmPlexSansArabic
         )
 
         SettingItem(
             title = "Password to open the fridge",
-            iconRes = R.drawable.ic_fridge, // Add this icon
-            fontFamily = fontFamily,
+            iconRes = R.drawable.ic_fridge,
+            fontFamily = ibmPlexSansArabic,
             isLast = true
         )
     }
@@ -489,12 +501,18 @@ fun SettingItem(
     fontFamily: FontFamily,
     isLast: Boolean = false
 ) {
+    val ibmPlexSansArabic = FontFamily(
+        Font(R.font.ibm_plex_sans_arabic_bold, FontWeight.Bold),
+        Font(R.font.ibm_plex_sans_arabic_medium, FontWeight.Medium),
+        Font(R.font.ibm_plex_sans_arabic_regular, FontWeight.Normal)
+    )
+
     Column {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { /* Handle click */ }
-                .padding(vertical = 16.dp),
+                .padding(vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -509,17 +527,10 @@ fun SettingItem(
             Text(
                 text = title,
                 fontSize = 16.sp,
-                color = Color(0xFF1F2937),
-                fontFamily = fontFamily,
+                color = Color(0xFF1F1F1E).copy(alpha = 0.87f),
+                fontFamily = ibmPlexSansArabic,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.weight(1f)
-            )
-
-            Icon(
-                painter = painterResource(id = R.drawable.ic_arrow_right),
-                contentDescription = "Arrow",
-                tint = Color(0xFF9CA3AF),
-                modifier = Modifier.size(16.dp)
             )
         }
 
@@ -535,7 +546,7 @@ fun SettingItem(
     }
 }
 
-@Preview(showBackground = true, widthDp = 390, heightDp = 844)
+@Preview(showBackground = true, widthDp = 390, heightDp = 844, showSystemUi = true)
 @Composable
 fun TomAccountScreenPreview() {
     MaterialTheme {

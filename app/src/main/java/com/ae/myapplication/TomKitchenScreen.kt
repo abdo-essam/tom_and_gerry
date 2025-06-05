@@ -280,7 +280,7 @@ fun FoodDetailsContent(ibmPlexSansArabic: FontFamily) {
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             DetailCard(
                 icon = R.drawable.ic_temperature,
@@ -306,12 +306,14 @@ fun FoodDetailsContent(ibmPlexSansArabic: FontFamily) {
         }
 
         // Preparation Method
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         Text(
             text = "Preparation method",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
+            lineHeight = 32.sp,
+            letterSpacing = 0.5.sp,
             color = Color(0xFF1F1F1E),
             fontFamily = ibmPlexSansArabic
         )
@@ -337,7 +339,7 @@ fun DetailCard(
     ibmPlexSansArabic: FontFamily
 ) {
     Card(
-        modifier = modifier.height(120.dp),
+        modifier = modifier.height(109.dp),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFD0E5F0)),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
@@ -345,7 +347,7 @@ fun DetailCard(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(12.dp),
+                .padding(4.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -356,24 +358,25 @@ fun DetailCard(
                 modifier = Modifier.size(32.dp)
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             Text(
                 text = value,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color(0xFF1F1F1E),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color(0xFF121212).copy(alpha = 0.6f),
                 fontFamily = ibmPlexSansArabic,
+                letterSpacing = 0.5.sp,
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(2.dp))
 
             Text(
                 text = label,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
-                color = Color(0xFF6B7280),
+                color = Color(0xFF121212).copy(alpha = 0.37f),
                 fontFamily = ibmPlexSansArabic,
                 textAlign = TextAlign.Center
             )

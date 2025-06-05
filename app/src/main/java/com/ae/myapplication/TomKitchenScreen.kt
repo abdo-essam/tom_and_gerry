@@ -192,8 +192,8 @@ fun FoodDetailsContent(ibmPlexSansArabic: FontFamily) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(24.dp)
-            .padding(top = 40.dp) // Extra space for overlapping image
+            .padding(16.dp)
+            .padding(top = 16.dp)
     ) {
         // Title and Heart Row
         Row(
@@ -204,23 +204,24 @@ fun FoodDetailsContent(ibmPlexSansArabic: FontFamily) {
             Column {
                 Text(
                     text = "Electric Tom pasta",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF1F1F1E),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium,
+                    lineHeight = 32.sp,
+                    color = Color(0xFF1F1F1E).copy(alpha = 0.87f),
                     fontFamily = ibmPlexSansArabic
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 // Price Badge
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .background(
-                            color = Color(0xFFE1F5FE),
+                            color = Color(0xFFD0E5F0),
                             shape = RoundedCornerShape(8.dp)
                         )
-                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                        .padding(horizontal = 8.dp, vertical = 6.dp)
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_cheese),
@@ -231,7 +232,7 @@ fun FoodDetailsContent(ibmPlexSansArabic: FontFamily) {
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = "5 cheeses",
-                        fontSize = 14.sp,
+                        fontSize = 12.sp,
                         color = Color(0xFF03578A),
                         fontWeight = FontWeight.Medium,
                         fontFamily = ibmPlexSansArabic
@@ -244,21 +245,22 @@ fun FoodDetailsContent(ibmPlexSansArabic: FontFamily) {
                 contentDescription = "Favorite",
                 tint = Color(0xFF03578A),
                 modifier = Modifier
-                    .size(28.dp)
+                    .size(24.dp)
                     .clickable { /* Handle favorite */ }
             )
         }
 
         // Description
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Text(
             text = "Pasta cooked with a charger cable and sprinkled with questionable cheese. Make sure to unplug it before eating (or not, you decide).",
             fontSize = 14.sp,
-            color = Color(0xFF6B7280),
+            color = Color(0xFF121212).copy(alpha = 0.6f),
             fontFamily = ibmPlexSansArabic,
-            fontWeight = FontWeight.Normal,
-            lineHeight = 22.sp
+            fontWeight = FontWeight.Medium,
+            lineHeight = 20.sp,
+            letterSpacing = 0.5.sp,
         )
 
         // Details Section
@@ -266,13 +268,15 @@ fun FoodDetailsContent(ibmPlexSansArabic: FontFamily) {
 
         Text(
             text = "Details",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF1F1F1E),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
+            letterSpacing = 0.5.sp,
+            lineHeight = 32.sp,
+            color = Color(0xFF1F1F1E).copy(alpha = .87f),
             fontFamily = ibmPlexSansArabic
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),

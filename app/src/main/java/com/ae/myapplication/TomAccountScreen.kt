@@ -90,33 +90,50 @@ fun TomAccountScreen() {
             // Profile Section
             ProfileSection(fontFamily = ibmPlexSansArabic)
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-            // Stats Grid
-            StatsGrid(fontFamily = ibmPlexSansArabic)
+            // White card container for all remaining content
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f), // Take remaining space
+                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFEEF4F6))
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .padding(top = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // Stats Grid
+                    StatsGrid(fontFamily = ibmPlexSansArabic)
 
-            Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
 
-            // Settings Section
-            SettingsSection(fontFamily = ibmPlexSansArabic)
+                    // Settings Section
+                    SettingsSection(fontFamily = ibmPlexSansArabic)
 
-            Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
 
-            // Favorite Foods Section
-            FavoriteFoodsSection(fontFamily = ibmPlexSansArabic)
+                    // Favorite Foods Section
+                    FavoriteFoodsSection(fontFamily = ibmPlexSansArabic)
 
-            Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(24.dp))
 
-            // Version text
-            Text(
-                text = "v.TomBeta",
-                fontSize = 14.sp,
-                color = Color(0xFF6B7280),
-                fontFamily = ibmPlexSansArabic,
-                fontWeight = FontWeight.Normal
-            )
+                    // Version text
+                    Text(
+                        text = "v.TomBeta",
+                        fontSize = 14.sp,
+                        color = Color(0xFF6B7280),
+                        fontFamily = ibmPlexSansArabic,
+                        fontWeight = FontWeight.Normal
+                    )
 
-            Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
+                }
+            }
         }
     }
 }
@@ -230,19 +247,19 @@ fun StatsGrid(fontFamily: FontFamily) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             StatCard(
                 value = "2M 12K",
                 label = "No. of quarrels",
-                backgroundColor = Color(0xFFE3F2FD),
+                backgroundColor = Color(0xFFD0E5F0),
                 iconRes = R.drawable.ic_quarrels,
-                iconTint = Color(0xFF1976D2),
-                arcSweepAngle = 180f, // Half circle
+                iconTint = Color(0xFF03578A),
+                arcSweepAngle = 210f,
                 modifier = Modifier.weight(1f),
                 fontFamily = fontFamily
             )
@@ -250,28 +267,28 @@ fun StatsGrid(fontFamily: FontFamily) {
             StatCard(
                 value = "+500 h",
                 label = "Chase time",
-                backgroundColor = Color(0xFFE8F5E8),
+                backgroundColor = Color(0xFFDEEECD),
                 iconRes = R.drawable.ic_chase,
-                iconTint = Color(0xFF4CAF50),
-                arcSweepAngle = 120f, // Smaller arc
+                iconTint = Color(0xFF57AB0F),
+                arcSweepAngle = 90f,
                 modifier = Modifier.weight(1f),
                 fontFamily = fontFamily
             )
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             StatCard(
                 value = "2M 12K",
                 label = "Hunting times",
-                backgroundColor = Color(0xFFFCE4EC),
+                backgroundColor = Color(0xFFF2D9E7),
                 iconRes = R.drawable.ic_hunting,
-                iconTint = Color(0xFFE91E63),
-                arcSweepAngle = 90f, // Quarter circle
+                iconTint = Color(0xFFF46983),
+                arcSweepAngle = 320f,
                 modifier = Modifier.weight(1f),
                 fontFamily = fontFamily
             )
@@ -279,10 +296,10 @@ fun StatsGrid(fontFamily: FontFamily) {
             StatCard(
                 value = "3M 7K",
                 label = "Heartbroken",
-                backgroundColor = Color(0xFFFFF3E0),
+                backgroundColor = Color(0xFFFAEDCF),
                 iconRes = R.drawable.ic_heartbroken,
-                iconTint = Color(0xFFFF9800),
-                arcSweepAngle = 270f, // Three quarters circle
+                iconTint = Color(0xFFFFBF1A),
+                arcSweepAngle = 50f,
                 modifier = Modifier.weight(1f),
                 fontFamily = fontFamily
             )
@@ -307,25 +324,27 @@ fun StatCard(
         Font(R.font.ibm_plex_sans_arabic_regular, FontWeight.Normal)
     )
     Card(
-        modifier = modifier.height(80.dp),
+        modifier = modifier.height(58.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(vertical = 9.dp, horizontal = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+
         ) {
             // Icon with decorative circle
             Box(
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier.size(40.dp),
                 contentAlignment = Alignment.Center
             ) {
                 // White circle background for icon
                 Box(
                     modifier = Modifier
-                        .size(36.dp)
+                        .size(40.dp)
                         .background(
                             color = Color.White,
                             shape = CircleShape
@@ -344,7 +363,7 @@ fun StatCard(
                 Canvas(
                     modifier = Modifier.size(40.dp)
                 ) {
-                    val strokeWidth = 2.5.dp.toPx() // Thinner line
+                    val strokeWidth = 1.dp.toPx() // Thinner line
                     val radius = 20.dp.toPx()
 
                     // Draw arc starting from top (12 o'clock) going clockwise

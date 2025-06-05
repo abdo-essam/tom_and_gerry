@@ -94,7 +94,7 @@ fun TomKitchenScreen() {
                         .fillMaxSize()
                         .padding(top = 60.dp), // Space for food image
                     shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    colors = CardDefaults.cardColors(containerColor = Color(0xFFEEF4F6)),
                     elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                 ) {
                     Column(
@@ -318,14 +318,14 @@ fun FoodDetailsContent(ibmPlexSansArabic: FontFamily) {
             fontFamily = ibmPlexSansArabic
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         PreparationStep(1, "Put the pasta in a toaster.", ibmPlexSansArabic)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         PreparationStep(2, "Pour battery juice over it.", ibmPlexSansArabic)
-        Spacer(modifier = Modifier.height(16.dp))
-        PreparationStep(3, "Wait for the spark to ignite.", ibmPlexSansArabic, isHighlighted = true)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
+        PreparationStep(3, "Wait for the spark to ignite.", ibmPlexSansArabic)
+        Spacer(modifier = Modifier.height(8.dp))
         PreparationStep(4, "Serve with an insulating glove.", ibmPlexSansArabic)
     }
 }
@@ -389,27 +389,26 @@ fun PreparationStep(
     stepNumber: Int,
     stepText: String,
     ibmPlexSansArabic: FontFamily,
-    isHighlighted: Boolean = false
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.Top
+        verticalAlignment = Alignment.CenterVertically // Changed from Top to CenterVertically
     ) {
         // Step Number Circle
         Box(
             modifier = Modifier
-                .size(40.dp)
+                .size(37.dp)
                 .clip(CircleShape)
                 .background(
-                    color = if (isHighlighted) Color(0xFFE1F5FE) else Color(0xFFF3F4F6)
+                    color = Color(0xFFFFFFFF) // Light blue background
                 ),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = stepNumber.toString(),
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = if (isHighlighted) Color(0xFF03578A) else Color(0xFF6B7280),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color(0xFF035587),
                 fontFamily = ibmPlexSansArabic
             )
         }
@@ -418,14 +417,13 @@ fun PreparationStep(
 
         Text(
             text = stepText,
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
-            color = Color(0xFF374151),
+            color = Color(0xFF121212).copy(alpha = 0.6f),
             fontFamily = ibmPlexSansArabic,
             lineHeight = 24.sp,
-            modifier = Modifier
-                .weight(1f)
-                .padding(top = 8.dp)
+            letterSpacing = 0.5.sp,
+            modifier = Modifier.weight(1f) // Removed padding top
         )
     }
 }

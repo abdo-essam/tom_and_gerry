@@ -110,7 +110,7 @@ fun TomAccountScreen() {
                     // Stats Grid
                     StatsGrid(fontFamily = ibmPlexSansArabic)
 
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(24.dp))
 
                     // Settings Section
                     SettingsSection(fontFamily = ibmPlexSansArabic)
@@ -436,11 +436,6 @@ fun SettingsSection(fontFamily: FontFamily) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .background(
-                color = Color.White,
-                shape = RoundedCornerShape(20.dp)
-            )
-            .padding(24.dp)
     ) {
         Text(
             text = "Tom settings",
@@ -477,19 +472,13 @@ fun FavoriteFoodsSection(fontFamily: FontFamily) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .background(
-                color = Color.White,
-                shape = RoundedCornerShape(20.dp)
-            )
-            .padding(24.dp)
     ) {
         Text(
             text = "His favorite foods",
-            fontSize = 24.sp,
+            fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF1F2937),
+            color = Color(0xFF1F1F1E).copy(alpha = 0.87f),
             fontFamily = fontFamily,
-            modifier = Modifier.padding(bottom = 20.dp)
         )
 
         SettingItem(

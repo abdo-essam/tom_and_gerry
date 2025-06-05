@@ -11,8 +11,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            TomAccountScreen()
-            // TomKitchenScreen()
+            //TomAccountScreen()
+             TomKitchenScreen()
             //TomStoreApp()
         }
     }

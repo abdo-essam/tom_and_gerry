@@ -33,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -44,6 +45,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 
 @Preview(showBackground = true, widthDp = 390, heightDp = 844)
 @Composable
@@ -63,33 +65,70 @@ fun TomKitchenScreen() {
     )
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF79A4BD)) // Solid background color
     ) {
-        Column(
+        // Ellipse shape overlay
+        Box(
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFFF2F7FA))
-                .verticalScroll(rememberScrollState())
-                .padding(bottom = 80.dp) // Space for the fixed button
+                .size(384.75.dp, 414.21.dp)
+                .offset(x = (-180).dp, y = (-50).dp)
+                .clip(CircleShape)
+                .background(Color(0x33035484)) // #035484 with 20% alpha
+        )
+
+        Column(
+            modifier = Modifier.fillMaxSize()
         ) {
-            // Header with tags
+            // Header Tags
             HeaderTags()
 
-            // Food Image
-            FoodImage()
+            // Container for overlapping elements
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                // Food Details Card
+                Card(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 60.dp), // Space for food image
+                    shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                            .padding(bottom = 80.dp) // Space for button
+                    ) {
+                        FoodDetailsContent(ibmPlexSansArabic)
+                    }
+                }
 
-            // Food Details Card
-            FoodDetailsCard(ibmPlexSansArabic)
+                // Food Image overlapping
+                Image(
+                    painter = painterResource(id = R.drawable.electric_pasta),
+                    contentDescription = "Electric Tom pasta",
+                    modifier = Modifier
+                        .size(200.dp)
+                        .align(Alignment.TopEnd)
+                        .offset(x = (-20).dp, y = (-100).dp)
+                        .zIndex(1f),
+                    contentScale = ContentScale.Fit
+                )
+
+                // Fixed Add to Cart Button
+                AddToCartButton(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    ibmPlexSansArabic = ibmPlexSansArabic
+                )
+            }
         }
-
-        // Fixed Add to Cart Button
-        AddToCartButton(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .padding(16.dp),
-            ibmPlexSansArabic = ibmPlexSansArabic
-        )
     }
 }
 
@@ -99,225 +138,189 @@ fun HeaderTags() {
         Font(R.font.ibm_plex_sans_arabic_medium, FontWeight.Medium)
     )
 
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(
-                color = Color(0xFF5A8BA8),
-                shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
-            )
-            .padding(horizontal = 16.dp, vertical = 20.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(start = 24.dp, top = 48.dp, bottom = 16.dp)
     ) {
-
-        Column {
-            // Tag 1: High tension
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = 4.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_tag),
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "High tension",
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontFamily = ibmPlexSansArabic,
-                    lineHeight = 16.sp
-                )
-            }
-
-            // Tag 2: Shocking foods
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = 4.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_chef_hat),
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Shocking foods",
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontFamily = ibmPlexSansArabic,
-                    lineHeight = 16.sp
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun FoodImage() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp)
-            .padding(horizontal = 32.dp)
-            .padding(top = 16.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.electric_pasta),
-            contentDescription = "Electric Tom pasta",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Fit
-        )
-    }
-}
-
-@Composable
-fun FoodDetailsCard(ibmPlexSansArabic: FontFamily) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 24.dp),
-        shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(24.dp)
+        // Tag 1: High tension
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(vertical = 4.dp)
         ) {
-            // Title and Price Row
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Electric Tom pasta",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color(0xDE1F1F1E),
-                    fontFamily = ibmPlexSansArabic,
-                    lineHeight = 16.sp,
-                    letterSpacing = 0.5.sp
-                )
-
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_heart_outline),
-                    contentDescription = "Favorite",
-                    tint = Color(0xFF03578A),
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable { /* Handle favorite */ }
-                )
-            }
-
-            // Price Badge
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .background(
-                        color = Color(0xFFE1F5FE),
-                        shape = RoundedCornerShape(8.dp)
-                    )
-                    .padding(horizontal = 12.dp, vertical = 6.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_cheese),
-                    contentDescription = "Cheese",
-                    tint = Color(0xFF03578A),
-                    modifier = Modifier.size(16.dp)
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(
-                    text = "5 cheeses",
-                    fontSize = 12.sp,
-                    color = Color(0xFF03578A),
-                    fontWeight = FontWeight.Medium,
-                    fontFamily = ibmPlexSansArabic
-                )
-            }
-
-            // Description
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = "Pasta cooked with a charger cable and sprinkled with questionable cheese. Make sure to unplug it before eating (or not, you decide).",
-                fontSize = 14.sp,
-                color = Color(0x99121212),
-                fontFamily = ibmPlexSansArabic,
-                fontWeight = FontWeight.Medium,
-                lineHeight = 20.sp
+            Icon(
+                painter = painterResource(id = R.drawable.ic_tag),
+                contentDescription = null,
+                tint = Color.White,
+                modifier = Modifier.size(24.dp)
             )
-
-            // Details Section
-            Spacer(modifier = Modifier.height(24.dp))
-
+            Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = "Details",
+                text = "High tension",
+                color = Color.White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color(0xDE1F1F1E),
-                fontFamily = ibmPlexSansArabic,
-                lineHeight = 16.sp,
-                letterSpacing = 0.5.sp
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                DetailCard(
-                    icon = R.drawable.ic_temperature,
-                    value = "1000 V",
-                    label = "Temperature",
-                    modifier = Modifier.weight(1f),
-                    ibmPlexSansArabic = ibmPlexSansArabic
-                )
-                DetailCard(
-                    icon = R.drawable.ic_timer,
-                    value = "3 sparks",
-                    label = "Time",
-                    modifier = Modifier.weight(1f),
-                    ibmPlexSansArabic = ibmPlexSansArabic
-                )
-                DetailCard(
-                    icon = R.drawable.ic_skull,
-                    value = "1M 12K",
-                    label = "No. of deaths",
-                    modifier = Modifier.weight(1f),
-                    ibmPlexSansArabic = ibmPlexSansArabic
-                )
-            }
-
-            // Preparation Method
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Text(
-                text = "Preparation method",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color(0xFF1F2937),
                 fontFamily = ibmPlexSansArabic
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            PreparationStep(1, "Put the pasta in a toaster.", ibmPlexSansArabic)
-            PreparationStep(2, "Pour battery juice over it.", ibmPlexSansArabic)
-            PreparationStep(3, "Wait for the spark to ignite.", ibmPlexSansArabic)
-            PreparationStep(4, "Serve with an insulating glove.", ibmPlexSansArabic)
         }
+
+        // Tag 2: Shocking foods
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(vertical = 4.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_chef_hat),
+                contentDescription = null,
+                tint = Color.White,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(
+                text = "Shocking foods",
+                color = Color.White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium,
+                fontFamily = ibmPlexSansArabic
+            )
+        }
+    }
+}
+
+@Composable
+fun FoodDetailsContent(ibmPlexSansArabic: FontFamily) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp)
+            .padding(top = 40.dp) // Extra space for overlapping image
+    ) {
+        // Title and Heart Row
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column {
+                Text(
+                    text = "Electric Tom pasta",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF1F1F1E),
+                    fontFamily = ibmPlexSansArabic
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Price Badge
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .background(
+                            color = Color(0xFFE1F5FE),
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_cheese),
+                        contentDescription = "Cheese",
+                        tint = Color(0xFF03578A),
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = "5 cheeses",
+                        fontSize = 14.sp,
+                        color = Color(0xFF03578A),
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = ibmPlexSansArabic
+                    )
+                }
+            }
+
+            Icon(
+                painter = painterResource(id = R.drawable.ic_heart_outline),
+                contentDescription = "Favorite",
+                tint = Color(0xFF03578A),
+                modifier = Modifier
+                    .size(28.dp)
+                    .clickable { /* Handle favorite */ }
+            )
+        }
+
+        // Description
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "Pasta cooked with a charger cable and sprinkled with questionable cheese. Make sure to unplug it before eating (or not, you decide).",
+            fontSize = 14.sp,
+            color = Color(0xFF6B7280),
+            fontFamily = ibmPlexSansArabic,
+            fontWeight = FontWeight.Normal,
+            lineHeight = 22.sp
+        )
+
+        // Details Section
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = "Details",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFF1F1F1E),
+            fontFamily = ibmPlexSansArabic
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            DetailCard(
+                icon = R.drawable.ic_temperature,
+                value = "1000 V",
+                label = "Temperature",
+                modifier = Modifier.weight(1f),
+                ibmPlexSansArabic = ibmPlexSansArabic
+            )
+            DetailCard(
+                icon = R.drawable.ic_timer,
+                value = "3 sparks",
+                label = "Time",
+                modifier = Modifier.weight(1f),
+                ibmPlexSansArabic = ibmPlexSansArabic
+            )
+            DetailCard(
+                icon = R.drawable.ic_skull,
+                value = "1M 12K",
+                label = "No. of deaths",
+                modifier = Modifier.weight(1f),
+                ibmPlexSansArabic = ibmPlexSansArabic
+            )
+        }
+
+        // Preparation Method
+        Spacer(modifier = Modifier.height(32.dp))
+
+        Text(
+            text = "Preparation method",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFF1F1F1E),
+            fontFamily = ibmPlexSansArabic
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        PreparationStep(1, "Put the pasta in a toaster.", ibmPlexSansArabic)
+        Spacer(modifier = Modifier.height(16.dp))
+        PreparationStep(2, "Pour battery juice over it.", ibmPlexSansArabic)
+        Spacer(modifier = Modifier.height(16.dp))
+        PreparationStep(3, "Wait for the spark to ignite.", ibmPlexSansArabic, isHighlighted = true)
+        Spacer(modifier = Modifier.height(16.dp))
+        PreparationStep(4, "Serve with an insulating glove.", ibmPlexSansArabic)
     }
 }
 
@@ -330,15 +333,17 @@ fun DetailCard(
     ibmPlexSansArabic: FontFamily
 ) {
     Card(
-        modifier = modifier.height(104.dp),
-        shape = RoundedCornerShape(16.dp)   ,
+        modifier = modifier.height(120.dp),
+        shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFD0E5F0)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Icon(
                 painter = painterResource(id = icon),
@@ -352,11 +357,10 @@ fun DetailCard(
             Text(
                 text = value,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color(0xFF1F2937),
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF1F1F1E),
                 fontFamily = ibmPlexSansArabic,
-                textAlign = TextAlign.Center,
-                letterSpacing = 0.5.sp
+                textAlign = TextAlign.Center
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -364,12 +368,10 @@ fun DetailCard(
             Text(
                 text = label,
                 fontSize = 12.sp,
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Normal,
                 color = Color(0xFF6B7280),
                 fontFamily = ibmPlexSansArabic,
-                textAlign = TextAlign.Center,
-                lineHeight = 16.sp,
-                letterSpacing = 0.5.sp
+                textAlign = TextAlign.Center
             )
         }
     }
@@ -379,29 +381,28 @@ fun DetailCard(
 fun PreparationStep(
     stepNumber: Int,
     stepText: String,
-    ibmPlexSansArabic: FontFamily
+    ibmPlexSansArabic: FontFamily,
+    isHighlighted: Boolean = false
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
+        modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.Top
     ) {
         // Step Number Circle
         Box(
             modifier = Modifier
-                .size(32.dp)
+                .size(40.dp)
+                .clip(CircleShape)
                 .background(
-                    color = Color(0xFFE1F5FE),
-                    shape = CircleShape
+                    color = if (isHighlighted) Color(0xFFE1F5FE) else Color(0xFFF3F4F6)
                 ),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = stepNumber.toString(),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color(0xFF03578A),
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = if (isHighlighted) Color(0xFF03578A) else Color(0xFF6B7280),
                 fontFamily = ibmPlexSansArabic
             )
         }
@@ -410,12 +411,14 @@ fun PreparationStep(
 
         Text(
             text = stepText,
-            fontSize = 14.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
-            color = Color(0xFF6B7280),
+            color = Color(0xFF374151),
             fontFamily = ibmPlexSansArabic,
-            lineHeight = 20.sp,
-            modifier = Modifier.weight(1f)
+            lineHeight = 24.sp,
+            modifier = Modifier
+                .weight(1f)
+                .padding(top = 8.dp)
         )
     }
 }
@@ -425,68 +428,77 @@ fun AddToCartButton(
     modifier: Modifier = Modifier,
     ibmPlexSansArabic: FontFamily
 ) {
-    var showStrikethrough by remember { mutableStateOf(false) }
+    var showDiscountedPrice by remember { mutableStateOf(false) }
 
     Button(
-        onClick = { showStrikethrough = !showStrikethrough },
+        onClick = { showDiscountedPrice = !showDiscountedPrice },
         modifier = modifier
             .fillMaxWidth()
-            .height(56.dp),
+            .height(60.dp),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(0xFF03578A)
         ),
         elevation = ButtonDefaults.buttonElevation(
-            defaultElevation = 4.dp
+            defaultElevation = 4.dp,
+            pressedElevation = 8.dp
         )
     ) {
         Row(
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = "Add to cart",
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 fontFamily = ibmPlexSansArabic
             )
 
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(4.dp))
 
-            Box {
-                // Price text with conditional strikethrough
-                Text(
-                    text = "5 cheeses",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal,
-                    color = Color.White.copy(alpha = 0.8f),
-                    fontFamily = ibmPlexSansArabic,
-                    textDecoration = if (showStrikethrough) TextDecoration.LineThrough else TextDecoration.None
-                )
+            Text(
+                text = "•",
+                fontSize = 18.sp,
+                color = Color.White.copy(alpha = 0.5f),
+                modifier = Modifier.padding(horizontal = 8.dp)
+            )
 
-                // Show "3 cheeses" when strikethrough is active
-                if (showStrikethrough) {
+            Box(
+                contentAlignment = Alignment.Center
+            ) {
+                if (showDiscountedPrice) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "3 cheeses",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            fontFamily = ibmPlexSansArabic
+                        )
+                        Text(
+                            text = "5 cheeses",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color.White.copy(alpha = 0.7f),
+                            fontFamily = ibmPlexSansArabic,
+                            textDecoration = TextDecoration.LineThrough
+                        )
+                    }
+                } else {
                     Text(
-                        text = "3 cheeses",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        text = "5 cheeses",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium,
                         color = Color.White,
-                        fontFamily = ibmPlexSansArabic,
-                        modifier = Modifier.offset(y = (-20).dp)
+                        fontFamily = ibmPlexSansArabic
                     )
                 }
             }
         }
     }
 }
-
-// Add these drawable resource IDs to your res/drawable folder:
-// - ic_arrow_back (back arrow icon)
-// - ic_tag (tag icon)
-// - ic_chef_hat (chef hat icon)
-// - ic_heart_outline (heart outline icon)
-// - ic_temperature (thermometer icon)
-// - ic_timer (timer/clock icon)
-// - ic_skull (skull icon)
-// - electric_pasta (the pasta dish image)

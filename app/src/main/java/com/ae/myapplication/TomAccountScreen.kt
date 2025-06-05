@@ -110,12 +110,21 @@ fun TomAccountScreen() {
                     // Stats Grid
                     StatsGrid(fontFamily = ibmPlexSansArabic)
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     // Settings Section
                     SettingsSection(fontFamily = ibmPlexSansArabic)
 
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // Separator line
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                            .background(Color(0xFF001A1F).copy(alpha = 0.08f))
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     // Favorite Foods Section
                     FavoriteFoodsSection(fontFamily = ibmPlexSansArabic)
@@ -131,7 +140,6 @@ fun TomAccountScreen() {
                         fontWeight = FontWeight.Normal
                     )
 
-                    Spacer(modifier = Modifier.height(32.dp))
                 }
             }
         }
@@ -461,7 +469,6 @@ fun SettingsSection(fontFamily: FontFamily) {
             title = "Password to open the fridge",
             iconRes = R.drawable.ic_fridge,
             fontFamily = ibmPlexSansArabic,
-            isLast = true
         )
     }
 }
@@ -497,7 +504,6 @@ fun FavoriteFoodsSection(fontFamily: FontFamily) {
             title = "Change sleep mood",
             iconRes = R.drawable.ic_sleep_mood, // Add this icon
             fontFamily = fontFamily,
-            isLast = true
         )
     }
 }
@@ -507,7 +513,6 @@ fun SettingItem(
     title: String,
     iconRes: Int,
     fontFamily: FontFamily,
-    isLast: Boolean = false
 ) {
     val ibmPlexSansArabic = FontFamily(
         Font(R.font.ibm_plex_sans_arabic_bold, FontWeight.Bold),
@@ -539,16 +544,6 @@ fun SettingItem(
                 fontFamily = ibmPlexSansArabic,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.weight(1f)
-            )
-        }
-
-        if (!isLast) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(Color(0xFFF3F4F6))
-                    .padding(start = 40.dp)
             )
         }
     }

@@ -2,6 +2,7 @@ package com.ae.myapplication
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -391,7 +392,12 @@ fun PreparationStep(
     ibmPlexSansArabic: FontFamily,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = Color.White,
+                shape = RoundedCornerShape(24.dp) // Increased corner radius
+            ),
         verticalAlignment = Alignment.CenterVertically // Changed from Top to CenterVertically
     ) {
         // Step Number Circle
@@ -399,9 +405,15 @@ fun PreparationStep(
             modifier = Modifier
                 .size(37.dp)
                 .clip(CircleShape)
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFFD0E5F0), // Border color
+                    shape = CircleShape
+                )
                 .background(
                     color = Color(0xFFFFFFFF) // Light blue background
                 ),
+
             contentAlignment = Alignment.Center
         ) {
             Text(

@@ -1,5 +1,6 @@
 package com.ae.myapplication
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -449,11 +450,15 @@ fun AddToCartButton(
     var showDiscountedPrice by remember { mutableStateOf(false) }
 
     Card(
-        modifier = modifier,
+        modifier = modifier.height(86.dp), // Set card height to 86dp
         shape = RectangleShape,
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         ),
+        border = BorderStroke(
+            width = 1.dp,
+            color = Color(0x1F1F1F1E) // #1F1F1E with 12% alpha
+        )
 
     ) {
         Button(

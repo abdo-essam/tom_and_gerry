@@ -560,18 +560,16 @@ fun SettingItem(
     iconRes: Int,
     fontFamily: FontFamily,
 ) {
-    val ibmPlexSansArabic = FontFamily(
-        Font(R.font.ibm_plex_sans_arabic_bold, FontWeight.Bold),
-        Font(R.font.ibm_plex_sans_arabic_medium, FontWeight.Medium),
-        Font(R.font.ibm_plex_sans_arabic_regular, FontWeight.Normal)
-    )
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { /* Handle click */ }
-                .padding(vertical = 12.dp),
+                .clickable { /* Handle click */ },
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Icon with light background
@@ -579,8 +577,8 @@ fun SettingItem(
                 modifier = Modifier
                     .size(40.dp)
                     .background(
-                        color = Color(0xFFF8F9FA),
-                        shape =  RoundedCornerShape(8.dp)
+                        color = Color.White,
+                        shape = RoundedCornerShape(8.dp)
                     ),
                 contentAlignment = Alignment.Center
             ) {
@@ -591,13 +589,14 @@ fun SettingItem(
                     modifier = Modifier.size(24.dp)
                 )
             }
-            Spacer(modifier = Modifier.width(16.dp))
+            // spacer between icon and text
+            Spacer(modifier = Modifier.width(8.dp))
 
             Text(
                 text = title,
                 fontSize = 16.sp,
                 color = Color(0xFF1F1F1E).copy(alpha = 0.87f),
-                fontFamily = ibmPlexSansArabic,
+                fontFamily = fontFamily,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.weight(1f)
             )

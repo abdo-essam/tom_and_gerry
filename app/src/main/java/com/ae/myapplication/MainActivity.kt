@@ -12,8 +12,9 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             //TomAccountScreen()
-             TomKitchenScreen()
+             //TomKitchenScreen()
             //TomStoreApp()
+            DonutsOnboardingScreen()
         }
     }
 }

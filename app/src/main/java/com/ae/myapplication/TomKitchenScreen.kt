@@ -126,8 +126,7 @@ fun TomKitchenScreen() {
                 AddToCartButton(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .fillMaxWidth()
-                        ,
+                        .fillMaxWidth(),
                     ibmPlexSansArabic = ibmPlexSansArabic
                 )
             }
@@ -144,7 +143,8 @@ fun HeaderTags() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 24.dp, top = 48.dp, bottom = 16.dp)
+            .padding(start = 24.dp, top = 80.dp, bottom = 16.dp),
+        verticalArrangement = Arrangement.Bottom,
     ) {
         // Tag 1: High tension
         Row(

@@ -1,6 +1,6 @@
 package com.ae.myapplication
 
-
+import androidx.compose.ui.draw.rotate
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.Canvas
@@ -148,36 +148,82 @@ fun TomAccountScreen() {
 
 @Composable
 fun BackgroundDecorations() {
-    // Large decorative circles in background
-    Box(
-        modifier = Modifier
-            .size(300.dp)
-            .offset(x = 200.dp, y = (-100).dp)
-            .background(
-                color = Color.White.copy(alpha = 0.1f),
-                shape = CircleShape
-            )
-    )
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Large diagonal shape - top left to bottom right
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val path = androidx.compose.ui.graphics.Path()
+            path.moveTo(0f, 0f)
+            path.lineTo(size.width * 0.65f, 0f)
+            path.lineTo(size.width * 0.35f, size.height * 0.4f)
+            path.lineTo(0f, size.height * 0.25f)
+            path.close()
 
-    Box(
-        modifier = Modifier
-            .size(200.dp)
-            .offset(x = (-80).dp, y = 100.dp)
-            .background(
-                color = Color.White.copy(alpha = 0.05f),
-                shape = CircleShape
+            drawPath(
+                path = path,
+                color = Color.White.copy(alpha = 0.08f)
             )
-    )
+        }
 
-    Box(
-        modifier = Modifier
-            .size(150.dp)
-            .offset(x = 250.dp, y = 400.dp)
-            .background(
-                color = Color.White.copy(alpha = 0.08f),
-                shape = CircleShape
+        // Second diagonal shape - top right
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val path = androidx.compose.ui.graphics.Path()
+            path.moveTo(size.width * 0.4f, 0f)
+            path.lineTo(size.width, 0f)
+            path.lineTo(size.width, size.height * 0.15f)
+            path.lineTo(size.width * 0.55f, size.height * 0.35f)
+            path.close()
+
+            drawPath(
+                path = path,
+                color = Color.White.copy(alpha = 0.05f)
             )
-    )
+        }
+
+        // Third shape - middle section
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val path = androidx.compose.ui.graphics.Path()
+            path.moveTo(0f, size.height * 0.15f)
+            path.lineTo(size.width * 0.45f, size.height * 0.28f)
+            path.lineTo(size.width * 0.3f, size.height * 0.45f)
+            path.lineTo(0f, size.height * 0.35f)
+            path.close()
+
+            drawPath(
+                path = path,
+                color = Color.White.copy(alpha = 0.04f)
+            )
+        }
+
+        // Bottom right shape
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val path = androidx.compose.ui.graphics.Path()
+            path.moveTo(size.width * 0.6f, size.height * 0.25f)
+            path.lineTo(size.width, size.height * 0.1f)
+            path.lineTo(size.width, size.height * 0.4f)
+            path.lineTo(size.width * 0.7f, size.height * 0.4f)
+            path.close()
+
+            drawPath(
+                path = path,
+                color = Color.White.copy(alpha = 0.06f)
+            )
+        }
+
+        // Additional accent shapes for depth
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val path = androidx.compose.ui.graphics.Path()
+            path.moveTo(size.width * 0.2f, 0f)
+            path.lineTo(size.width * 0.5f, 0f)
+            path.lineTo(size.width * 0.25f, size.height * 0.2f)
+            path.lineTo(size.width * 0.1f, size.height * 0.15f)
+            path.close()
+
+            drawPath(
+                path = path,
+                color = Color.White.copy(alpha = 0.03f)
+            )
+        }
+    }
 }
 
 @Composable

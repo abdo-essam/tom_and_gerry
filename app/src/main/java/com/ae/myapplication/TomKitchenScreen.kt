@@ -36,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -125,7 +126,7 @@ fun TomKitchenScreen() {
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        ,
                     ibmPlexSansArabic = ibmPlexSansArabic
                 )
             }
@@ -447,73 +448,81 @@ fun AddToCartButton(
 ) {
     var showDiscountedPrice by remember { mutableStateOf(false) }
 
-    Button(
-        onClick = { showDiscountedPrice = !showDiscountedPrice },
-        modifier = modifier
-            .fillMaxWidth()
-            .height(60.dp),
-        shape = RoundedCornerShape(16.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF03578A)
+    Card(
+        modifier = modifier,
+        shape = RectangleShape,
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
         ),
-        elevation = ButtonDefaults.buttonElevation(
-            defaultElevation = 4.dp,
-            pressedElevation = 8.dp
-        )
+
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+        Button(
+            onClick = { showDiscountedPrice = !showDiscountedPrice },
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .height(56.dp),
+            shape = RoundedCornerShape(16.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF226993)
+            ),
         ) {
-            Text(
-                text = "Add to cart",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.White,
-                fontFamily = ibmPlexSansArabic
-            )
-
-            Spacer(modifier = Modifier.width(4.dp))
-
-            Text(
-                text = "•",
-                fontSize = 18.sp,
-                color = Color.White.copy(alpha = 0.5f),
-                modifier = Modifier.padding(horizontal = 8.dp)
-            )
-
-            Box(
-                contentAlignment = Alignment.Center
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                if (showDiscountedPrice) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "3 cheeses",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White,
-                            fontFamily = ibmPlexSansArabic
-                        )
+                Text(
+                    text = "Add to cart",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.White.copy(alpha = 0.87f),
+                    fontFamily = ibmPlexSansArabic
+                )
+
+                Spacer(modifier = Modifier.width(4.dp))
+
+                Text(
+                    text = "•",
+                    fontSize = 18.sp,
+                    color = Color.White.copy(alpha = 0.38f),
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+
+                Box(
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (showDiscountedPrice) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "3 cheeses",
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.White,
+                                letterSpacing = 0.5.sp,
+                                fontFamily = ibmPlexSansArabic
+                            )
+                            Text(
+                                text = "5 cheeses",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.White.copy(alpha = 0.8f),
+                                fontFamily = ibmPlexSansArabic,
+                                letterSpacing = 0.5.sp,
+                                textDecoration = TextDecoration.LineThrough
+                            )
+                        }
+                    } else {
                         Text(
                             text = "5 cheeses",
                             fontSize = 14.sp,
-                            fontWeight = FontWeight.Normal,
-                            color = Color.White.copy(alpha = 0.7f),
-                            fontFamily = ibmPlexSansArabic,
-                            textDecoration = TextDecoration.LineThrough
+                            fontWeight = FontWeight.Medium,
+                            color = Color.White,
+                            fontFamily = ibmPlexSansArabic
                         )
                     }
-                } else {
-                    Text(
-                        text = "5 cheeses",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color.White,
-                        fontFamily = ibmPlexSansArabic
-                    )
                 }
             }
         }
